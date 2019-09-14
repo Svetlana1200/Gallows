@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Data {
-	ArrayList<String> right_word; // загаданноe слове
+	ArrayList<String> right_word; // загаданноe слово
 	String definition;
 	ArrayList<String> user_word; // слово которое на данный момент видит пользователь
 	
