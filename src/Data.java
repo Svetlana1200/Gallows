@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 
 public class Data {
-	ArrayList<String> right_word; // загаданноe слово
+	ArrayList<String> right_word; // Р·Р°РіР°РґР°РЅРЅРѕe СЃР»РѕРІРѕ
 	String definition;
-	ArrayList<String> user_word; // слово которое на данный момент видит пользователь
+	ArrayList<String> user_word; // СЃР»РѕРІРѕ РєРѕС‚РѕСЂРѕРµ РЅР° РґР°РЅРЅС‹Р№ РјРѕРјРµРЅС‚ РІРёРґРёС‚ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ
 	
 	Data()
 	{
@@ -13,12 +13,12 @@ public class Data {
 	private void parce_data()
 	{
 		//TODO
-		// парсится файл с определениями и словами
+		// РїР°СЂСЃРёС‚СЃСЏ С„Р°Р№Р» СЃ РѕРїСЂРµРґРµР»РµРЅРёСЏРјРё Рё СЃР»РѕРІР°РјРё
 	}
 	
 	public void give_hint()
 	{
 		//TODO
-		// дается подсказка
+		// РґР°РµС‚СЃСЏ РїРѕРґСЃРєР°Р·РєР°
 	}
 }
