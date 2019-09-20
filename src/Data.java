@@ -1,23 +1,30 @@
 import java.util.ArrayList;
 
 public class Data {
-	ArrayList<String> right_word; // загаданноe слово
-	String definition;
-	ArrayList<String> user_word; // слово которое на данный момент видит пользователь
+	public char[] right_word; // загаданноe слово
+	public String definition;
+	public char[] user_word; // слово которое на данный момент видит пользователь
+	public ArrayList<Character> entered_letters = new ArrayList<Character>();
 	
 	Data()
 	{
-		//TODO 
+		right_word = new char[] {'б', 'и', 'т'};
+		user_word = new char [right_word.length];
+		for (var i = 0; i < user_word.length; i++)
+			user_word[i] = '-';
+		definition = "Наименьшая единица информации в цифровом компьютере, принимающая значения '0' или '1'.";
+		//TODO
 	}
 	
-	private void parce_data()
+	private void get_word()
 	{
 		//TODO
-		// парсится файл с определениями и словами
+		// получаем слово
 	}
 	
-	public void give_hint()
+	public String get_hint()
 	{
+		return "Подсказок нет :(";
 		//TODO
 		// дается подсказка
 	}

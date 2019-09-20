@@ -1,42 +1,101 @@
+import java.util.Arrays;
 
-public class Bot {
+public class Bot 
+{
 	public boolean is_work = true;
-	public Data data = new Data();
-	public int count_mistakes = 0;
+	private static Data data;
+	private int count_user_mistakes = 0;
+	private boolean is_game_continue = false;
+	
+	Bot()
+	{
+		System.out.println("¬рем€ поиграть! ѕомощь: /help; нова€ игра: /new; повторить текущий вопрос: /again; вз€ть подсказку: /hint; выйти: /exit");
+	}
+	
+	public void check_input_string(String inp_str)
+	{
+		if (inp_str.length() == 1) // ввел одну букву, которую при возможности надо открыть
+		{
+			if (is_game_continue)
+				check_symbol(inp_str.charAt(0));
+			else
+				System.out.println("Ќачните новую игру");
+			return;
+		}
+		check_command(inp_str);	
+	}
 	
 	public void check_command(String command)
 	{
-		if (command.length() == 1) // ввел одну букву, которую при возможности надо открыть
-		{
-			//TODO
-			// если command есть в загаданном слове, то записываем в слово, которое видит пользователь
-			// иначе увеличиваем количество ошибок и в зависимости от кол-ва ошибок можно рисовать виселицу
-			return;
-		}
 		switch(command)
 		{
 			case "/help":
-				//TODO
-				System.out.println("HELP");
+				System.out.println("ѕомощь: /help; нова€ игра: /new; повторить текущий вопрос: /again; вз€ть подсказку: /hint; выйти: /exit");
 				break;
 			case "/new":
-				//TODO
-				System.out.println("NEW"); // начать новую игру
+				data = new Data();// начать новую игру
+				is_game_continue = true;
+				System.out.println(data.definition + "\n" + new String(data.user_word));
 				break;
 			case "/again":
-				System.out.println("AGAIN"); // повторить текущий вопрос
+				if (is_game_continue)
+					System.out.println(data.definition);// повторить текущий вопрос
+				else
+					System.out.println("Ќачните новую игру");
 				break;
 			case "/hint":
-				//TODO
-				System.out.println("HINT"); // вз€ть подсказку
+				if (is_game_continue)
+					System.out.println(data.get_hint()); // вз€ть подсказку
+				else
+					System.out.println("Ќачните новую игру");
+				break;
+			case "/letters":	
+				if (is_game_continue)
+					System.out.println(data.entered_letters.toString().replaceAll("\\[\\]", "")); // посмотреть введенные буквы
+				else
+					System.out.println("Ќачните новую игру");
 				break;
 			case "/exit": // выход из бота
 				is_work = false;
-				System.out.println("EXIT");
+				System.out.println("ƒо новый встреч!");
 				break;
 			default:
-				//TODO
-				System.out.println("Wrong command");
+				System.out.println("¬ы ввели неверную команду. ѕомощь: /help; нова€ игра: /new; повторить текущий вопрос: /again; вз€ть подсказку: /hint; выйти: /exit");
+		}	
+	}
+	
+	public void check_symbol(char symbol)
+	{
+		if (!data.entered_letters.contains(symbol))
+		{
+			if (!try_open_symbol(symbol))
+			{
+				count_user_mistakes++;
+				System.out.println("“акой буквы нет");
+			}
+			System.out.println(data.user_word);
+			if (Arrays.equals(data.right_word, data.user_word))
+			{
+				System.out.println("¬ы угадали!");
+				is_game_continue = false;
+			}
+			data.entered_letters.add(symbol);
 		}
+		else
+			System.out.println("¬ы уже вводили эту букву");
+	}
+	
+	public static boolean try_open_symbol(char symbol)
+	{
+		var is_in_word = false; 
+	    for (int i = 0; i < data.right_word.length; i++)
+	    {
+	        if (data.right_word[i] == symbol)
+	        {
+	        	data.user_word[i] = symbol;
+	        	is_in_word = true;
+	        }
+	    }
+	    return is_in_word;
 	}
 }
