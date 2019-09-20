@@ -8,11 +8,6 @@ public class Data {
 	
 	Data()
 	{
-		right_word = new char[] {'б', 'и', 'т'};
-		user_word = new char [right_word.length];
-		for (var i = 0; i < user_word.length; i++)
-			user_word[i] = '-';
-		definition = "Наименьшая единица информации в цифровом компьютере, принимающая значения '0' или '1'.";
 		//TODO
 	}
 	
