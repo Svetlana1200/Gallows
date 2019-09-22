@@ -1,26 +1,30 @@
 import java.util.ArrayList;
 
 public class Data {
-	public char[] right_word; // загаданноe слово
+	public char[] right_word; // Р·Р°РіР°РґР°РЅРЅРѕe СЃР»РѕРІРѕ
 	public String definition;
-	public char[] user_word; // слово которое на данный момент видит пользователь
+	public char[] user_word; // СЃР»РѕРІРѕ РєРѕС‚РѕСЂРѕРµ РЅР° РґР°РЅРЅС‹Р№ РјРѕРјРµРЅС‚ РІРёРґРёС‚ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ
 	public ArrayList<Character> entered_letters = new ArrayList<Character>();
 	
 	Data()
 	{
-		//TODO
+		/*right_word = new char[] {'Р±', 'Рё', 'С‚'};
+		user_word = new char [right_word.length];
+		for (var i = 0; i < user_word.length; i++)
+			user_word[i] = '-';
+		definition = "РќР°РёРјРµРЅСЊС€Р°СЏ РµРґРёРЅРёС†Р° РёРЅС„РѕСЂРјР°С†РёРё РІ С†РёС„СЂРѕРІРѕРј РєРѕРјРїСЊСЋС‚РµСЂРµ, РїСЂРёРЅРёРјР°СЋС‰Р°СЏ Р·РЅР°С‡РµРЅРёСЏ '0' РёР»Рё '1'.";*/
 	}
 	
 	private void get_word()
 	{
 		//TODO
-		// получаем слово
+		// РїРѕР»СѓС‡Р°РµРј СЃР»РѕРІРѕ
 	}
 	
 	public String get_hint()
 	{
-		return "Подсказок нет :(";
+		return "РџРѕРґСЃРєР°Р·РѕРє РЅРµС‚ :(";
 		//TODO
-		// дается подсказка
+		// РґР°РµС‚СЃСЏ РїРѕРґСЃРєР°Р·РєР°
 	}
 }

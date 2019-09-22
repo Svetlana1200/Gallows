@@ -3,89 +3,87 @@ import java.util.Arrays;
 public class Bot 
 {
 	public boolean is_work = true;
-	private static Data data;
+	private Data data;
 	private int count_user_mistakes = 0;
-	private boolean is_game_continue = false;
-	
-	Bot()
-	{
-		System.out.println("Время поиграть! Помощь: /help; новая игра: /new; повторить текущий вопрос: /again; взять подсказку: /hint; выйти: /exit");
-	}
-	
+	public boolean is_game_continue = false;
+	public StringBuilder str = new StringBuilder(); 
+
 	public void check_input_string(String inp_str)
 	{
+		str = new StringBuilder();
 		if (inp_str.length() == 1) // ввел одну букву, которую при возможности надо открыть
 		{
 			if (is_game_continue)
-				check_symbol(inp_str.charAt(0));
+				check_symbol(inp_str.charAt(0), data);
 			else
-				System.out.println("Начните новую игру");
-			return;
+				str.append("Начните новую игру\n");
 		}
-		check_command(inp_str);	
+		else
+			data = check_command(inp_str, data);
 	}
 	
-	public void check_command(String command)
+	public Data check_command(String command, Data data)
 	{
 		switch(command)
 		{
 			case "/help":
-				System.out.println("Помощь: /help; новая игра: /new; повторить текущий вопрос: /again; взять подсказку: /hint; выйти: /exit");
+				str.append("Помощь: /help; новая игра: /new; повторить текущий вопрос: /again; взять подсказку: /hint; выйти: /exit\n");
 				break;
 			case "/new":
 				data = new Data();// начать новую игру
 				is_game_continue = true;
-				System.out.println(data.definition + "\n" + new String(data.user_word));
+				str.append(data.definition + "\n" + new String(data.user_word) + "\n");
 				break;
 			case "/again":
 				if (is_game_continue)
-					System.out.println(data.definition);// повторить текущий вопрос
+					str.append(data.definition + "\n" + new String(data.user_word) + "\n");
 				else
-					System.out.println("Начните новую игру");
+					str.append("Начните новую игру\n");
 				break;
 			case "/hint":
 				if (is_game_continue)
-					System.out.println(data.get_hint()); // взять подсказку
+					str.append(data.get_hint() + "\n");
 				else
-					System.out.println("Начните новую игру");
+					str.append("Начните новую игру\n");
 				break;
 			case "/letters":	
 				if (is_game_continue)
-					System.out.println(data.entered_letters.toString().replaceAll("\\[\\]", "")); // посмотреть введенные буквы
+					str.append(data.entered_letters.toString().replaceAll("\\[", "").replaceAll("\\]", "") + "\n");
 				else
-					System.out.println("Начните новую игру");
+					str.append("Начните новую игру\n");
 				break;
 			case "/exit": // выход из бота
 				is_work = false;
-				System.out.println("До новый встреч!");
+				str.append("До новый встреч!\n");
 				break;
 			default:
-				System.out.println("Вы ввели неверную команду. Помощь: /help; новая игра: /new; повторить текущий вопрос: /again; взять подсказку: /hint; выйти: /exit");
+				str.append("Вы ввели неверную команду. Помощь: /help; новая игра: /new; повторить текущий вопрос: /again; взять подсказку: /hint; выйти: /exit\n");
 		}	
+		return data;
 	}
 	
-	public void check_symbol(char symbol)
+	public void check_symbol(char symbol, Data data)
 	{
 		if (!data.entered_letters.contains(symbol))
 		{
-			if (!try_open_symbol(symbol))
+			if (!try_open_symbol(symbol, data))
 			{
 				count_user_mistakes++;
-				System.out.println("Такой буквы нет");
+				str.append("Такой буквы нет\n");
 			}
-			System.out.println(data.user_word);
+			str.append(new String(data.user_word) + "\n");
 			if (Arrays.equals(data.right_word, data.user_word))
 			{
-				System.out.println("Вы угадали!");
+				str.append("Вы угадали!\n");
 				is_game_continue = false;
 			}
 			data.entered_letters.add(symbol);
 		}
 		else
-			System.out.println("Вы уже вводили эту букву");
+			str.append("Вы уже вводили эту букву\n" + new String(data.user_word) + "\n");
 	}
 	
-	public static boolean try_open_symbol(char symbol)
+	public static boolean try_open_symbol(char symbol, Data data)
 	{
 		var is_in_word = false; 
 	    for (int i = 0; i < data.right_word.length; i++)
