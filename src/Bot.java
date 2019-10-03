@@ -52,7 +52,7 @@ public class Bot
 				else
 					str.append("Начните новую игру\n");
 				break;
-			case "/exit": // выход из бота
+			case "/exit":
 				is_work = false;
 				str.append("До новый встреч!\n");
 				break;
